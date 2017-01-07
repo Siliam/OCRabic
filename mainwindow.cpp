@@ -16,8 +16,8 @@
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     worker = new CVWorker();
-    // _labels = QString("ا;ب;ت;ث;ج;ح;خ;د;س;ف;ص;ء;ع;غ;ه;ل;بـ;تـ;ثـ;جـ;حـ;خـ;ذ;سـ;فـ;صـ;ئ;عـ;غـ;هـ;لـ;م;ن;ة;و;ي;ك;ر;ش;ق;ض;ئـ;ـعـ;ـغـ;ـهـ;لا;مـ;نـ;ـة;ؤ;يـ;كـ;ز;شـ;قـ;ضـ;ط;ظ;؟").split(";");
-    _labels = QString("ا;ب;ت;ث;ج;ح;خ;د;س;ف;ص;ط;ع;غ;ه;ل;بـ;تـ;ثـ;جـ;حـ;خـ;ذ;سـ;فـ;صـ;ى;عـ;غـ;هـ;لـ;م;ن;ة;و;ي;ظ;ر;ش;ق;ض;ئـ;ـعـ;ـغـ;ـهـ;لا;مـ;نـ;ـة;ؤ;يـ;كـ;ز;شـ;قـ;ضـ").split(";");
+    _labels = QString("ا;ب;ت;ث;ج;ح;خ;د;س;ف;ص;ء;ع;غ;ه;ل;بـ;تـ;ثـ;جـ;حـ;خـ;ذ;سـ;فـ;صـ;ئ;عـ;غـ;هـ;لـ;م;ن;ة;و;ي;ك;ر;ش;ق;ض;ئـ;ـعـ;ـغـ;ـهـ;لا;مـ;نـ;ـة;ؤ;يـ;كـ;ز;شـ;قـ;ضـ;ط;ظ;؟").split(";");
+    // _labels = QString("ا;ب;ت;ث;ج;ح;خ;د;س;ف;ص;ط;ع;غ;ه;ل;بـ;تـ;ثـ;جـ;حـ;خـ;ذ;سـ;فـ;صـ;ى;عـ;غـ;هـ;لـ;م;ن;ة;و;ي;ظ;ر;ش;ق;ض;ئـ;ـعـ;ـغـ;ـهـ;لا;مـ;نـ;ـة;ؤ;يـ;كـ;ز;شـ;قـ;ضـ").split(";");
 
     setupUI();
     setupConnections();
@@ -30,9 +30,9 @@ void MainWindow::setupUI()
     ui->tblFreq->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tblFreq->verticalHeader()->setDefaultSectionSize(20);
 
-    ui->txtOutput->setPlainText("Output here\n===========");
+   // ui->txtOutput->setPlainText("Output here\n===========");
 
-    setWindowTitle("OCRab");
+    setWindowTitle("OCRabic");
 }
 
 void MainWindow::setupConnections()
@@ -52,19 +52,19 @@ void MainWindow::setupConnections()
 
 void MainWindow::receiveLoad()
 {
-    QString dirname  = QFileDialog::getExistingDirectory(this, tr("Choose the data forlder"),
-                                                         QDir::currentPath(), QFileDialog::ShowDirsOnly);
+    /* QString dirname  = QFileDialog::getExistingDirectory(this, tr("Choose the data forlder"),
+                                                         QDir::currentPath(), QFileDialog::ShowDirsOnly);*/
 
-    // QString dirname = "C:\\Users\\Ismail\\Desktop\\balanced\\img";
+    QString dirname = "C:\\Users\\Ismail\\Desktop\\balanced\\img";
     // QString dirname = "C:\\Users\\Ismail\\Desktop\\minitest\\img";
     if(!dirname.isEmpty())
     {
         emit sendLoadImages(dirname);
 
-        QString filename = QFileDialog::getOpenFileName(this, tr("Select the input file"),
-                                                        "C:\\Users\\Ismail\\Desktop\\balanced\\out.txt");
+        /* QString filename = QFileDialog::getOpenFileName(this, tr("Select the input file"),
+                                                        "C:\\Users\\Ismail\\Desktop\\balanced\\out.txt");*/
 
-        // QString filename = "C:\\Users\\Ismail\\Desktop\\balanced\\out.txt";
+        QString filename = "C:\\Users\\Ismail\\Desktop\\balanced\\out.txt";
         // QString filename = "C:\\Users\\Ismail\\Desktop\\minitest\\out.txt";
         if(!filename.isEmpty())
         {
@@ -140,7 +140,7 @@ void MainWindow::receiveLoadedImages(QVector<Image*>* images)
         ui->lblClasses->setText(QString("# Classes : %1").arg(_labels.size()));
         _images = images;
 
-        testKNNLearner();
+        // testKNNLearner();
     }
 
     /*
@@ -182,8 +182,5 @@ void MainWindow::receiveError(QString error)
 
 MainWindow::~MainWindow()
 {
-    QLayoutItem *wItem;
-    while((wItem = ui->verticalLayout->layout()->takeAt(0)) != 0)
-        delete wItem;
     delete ui;
 }
